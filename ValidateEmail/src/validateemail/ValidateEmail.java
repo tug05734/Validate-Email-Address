@@ -39,6 +39,11 @@ public class ValidateEmail {
         System.out.println(Arrays.toString(emails));
     }
     
+    public static String[][] validate(String[] emailList){
+        String[][] arrayVal = new String[2][10];
+        //Enter regex validation code here 0 - validated 1 - invalid
+        return arrayVal;
+    }
     
     
 }
