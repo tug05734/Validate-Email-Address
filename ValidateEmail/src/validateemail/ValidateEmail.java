@@ -7,6 +7,8 @@ package validateemail;
 
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -36,12 +38,29 @@ public class ValidateEmail {
                 }
             }
         }
-        System.out.println(Arrays.toString(emails));
+        String[][] valArray = validate(emails);
+        System.out.println(Arrays.deepToString(valArray));
     }
     
     public static String[][] validate(String[] emailList){
         String[][] arrayVal = new String[2][10];
+        int j = 0, h = 0;
         //Enter regex validation code here 0 - validated 1 - invalid
+        Pattern pattern = Pattern.compile("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}");
+        for(String i : emailList){
+            if(i == null){
+                break;
+            }else{
+                Matcher matcher = pattern.matcher(i);
+                if(matcher.find()){
+                    arrayVal[0][j] = i;
+                    j++;
+                }else{
+                    arrayVal[1][h] = i;
+                    h++;
+                }
+            }
+        }
         return arrayVal;
     }
     
