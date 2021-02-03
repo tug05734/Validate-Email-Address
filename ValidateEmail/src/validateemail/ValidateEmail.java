@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  */
 public class ValidateEmail {
 
-    private static String[] emails = new String[10];
+    private static String[] emails = new String[100];
     private static ArrayList<String> valid = new ArrayList<>();
     private static ArrayList<String> invalid = new ArrayList<>();
     private static boolean stillRunning = true;
@@ -25,8 +25,8 @@ public class ValidateEmail {
     private static Scanner in = new Scanner(System.in);
     
     public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println("Enter e-mail addresses, max limit 10. Enter 'x' to quit. ");
+        // Loop for user to input emails
+        System.out.println("Enter e-mail addresses, max limit 100. Enter 'x' to quit. ");
         while(stillRunning){
             String userInput = in.nextLine();
             if(userInput.equalsIgnoreCase("x")){
@@ -46,10 +46,11 @@ public class ValidateEmail {
         search();
     }
     
+    //method that will validate the array of user inputted emails and returns 2d array
     public static String[][] validate(String[] emailList){
-        String[][] arrayVal = new String[2][10];
+        String[][] arrayVal = new String[2][100];
         int j = 0, h = 0;
-        //Enter regex validation code here 0 - validated 1 - invalid
+        //Sorts emails by validity 0 - validated 1 - invalid
         Pattern pattern = Pattern.compile("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}");
         for(String i : emailList){
             if(i == null){
@@ -68,10 +69,11 @@ public class ValidateEmail {
         return arrayVal;
     }
     
+    //method that prints the valid and invalid emails
     public static void printEmails(String[][] array){
         int x = 0, y = 0;
         for(int i = 0; i < 2; i++){
-            for(int j = 0; j < 10; j++){
+            for(int j = 0; j < 100; j++){
                 if(i == 0){
                     if(array[0][j] != null){
                         valid.add(array[0][j]);
@@ -89,6 +91,7 @@ public class ValidateEmail {
         System.out.println("Invalid Emails: " + invalid.toString());   
     }  
     
+    //method that conducts search based on user input
     public static void search(){
         System.out.print("\nEnter E-mail address to search: ");
         String userIn = in.nextLine();
