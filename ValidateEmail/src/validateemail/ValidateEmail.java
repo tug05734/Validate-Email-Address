@@ -5,6 +5,7 @@
  */
 package validateemail;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -17,12 +18,14 @@ import java.util.regex.Pattern;
 public class ValidateEmail {
 
     private static String[] emails = new String[10];
+    private static ArrayList<String> valid = new ArrayList<>();
+    private static ArrayList<String> invalid = new ArrayList<>();
     private static boolean stillRunning = true;
     private static int i = 0;
+    private static Scanner in = new Scanner(System.in);
     
     public static void main(String[] args) {
         // TODO code application logic here
-        Scanner in = new Scanner(System.in);
         System.out.println("Enter e-mail addresses, max limit 10. Enter 'x' to quit. ");
         while(stillRunning){
             String userInput = in.nextLine();
@@ -39,7 +42,8 @@ public class ValidateEmail {
             }
         }
         String[][] valArray = validate(emails);
-        System.out.println(Arrays.deepToString(valArray));
+        printEmails(valArray);
+        search();
     }
     
     public static String[][] validate(String[] emailList){
@@ -64,5 +68,36 @@ public class ValidateEmail {
         return arrayVal;
     }
     
+    public static void printEmails(String[][] array){
+        int x = 0, y = 0;
+        for(int i = 0; i < 2; i++){
+            for(int j = 0; j < 10; j++){
+                if(i == 0){
+                    if(array[0][j] != null){
+                        valid.add(array[0][j]);
+                        x++;
+                    }  
+                }else{
+                    if(array[1][j] != null){
+                       invalid.add(array[1][j]);
+                        y++;
+                    }
+                }
+            }
+        }
+        System.out.println("Valid Emails: " + valid.toString());
+        System.out.println("Invalid Emails: " + invalid.toString());   
+    }  
     
+    public static void search(){
+        System.out.print("\nEnter E-mail address to search: ");
+        String userIn = in.nextLine();
+        if(valid.contains(userIn)){
+            System.out.println("\nMatch Found! E-mail is valid");
+        }else if(invalid.contains(userIn)){
+            System.out.println("\nMatch Found but E-mail is invalid");
+        }else{
+            System.out.println("E-mail not found");
+        }
+    }
 }
